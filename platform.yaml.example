@@ -1,0 +1,19 @@
+project: nexuspay
+compose_file: docker-compose.yml   # optional; defaults to docker compose's own lookup
+services:
+  - name: api-gateway
+    port: 3000
+    health: http://localhost:3000/health
+    compose: services/api-gateway   # dir with Dockerfile + helm/ chart (used by `deploy local`)
+  - name: auth-service
+    port: 3001
+    health: http://localhost:3001/health
+    compose: services/auth-service
+database:
+  type: postgres
+  migration_tool: prisma            # prisma | alembic | golang-migrate
+  container: postgres
+  service: auth-service             # compose service that has the migration tool installed
+registry:
+  local: localhost:5000
+  remote: docker.io/cypher682

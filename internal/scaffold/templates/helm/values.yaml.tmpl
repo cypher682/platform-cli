@@ -1,0 +1,7 @@
+replicaCount: 1
+image:
+  repository: [[.Name]]
+  tag: dev
+  pullPolicy: IfNotPresent
+service:
+  port: [[.Port]]
