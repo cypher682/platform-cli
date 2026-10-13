@@ -1,6 +1,7 @@
 package logutil
 
 import (
+	"io"
 	"log/slog"
 	"os"
 )
@@ -12,5 +13,5 @@ func EnableVerbose() {
 }
 
 func Disable() {
-	Logger = slog.New(slog.DiscardHandler)
+	Logger = slog.New(slog.NewTextHandler(io.Discard, nil))
 }
